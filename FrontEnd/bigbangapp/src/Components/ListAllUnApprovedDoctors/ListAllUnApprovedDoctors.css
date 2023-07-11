@@ -1,0 +1,12 @@
+.approve-button{
+    display: inline-block;
+    padding: 10px 20px;
+    /* background-color: #167ce9; */
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .unapprove-list{
+    padding-top: 7rem;
+  }

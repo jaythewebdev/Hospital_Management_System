@@ -1,0 +1,235 @@
+.container {
+    margin-top: 4rem;
+      display: flex;
+      width:100%;
+      height: 100vh;
+      background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%);
+    }
+
+    .inner-wrapper-container{
+        display:flex;
+        justify-content: space-around;
+        align-items: baseline;
+    }
+    
+    .inner-left{
+        flex:1;
+        margin-right: 2rem;
+    }
+    .inner-right{
+        flex:1;
+    }
+
+    #patient-wrapper{
+        width:580px;
+    }
+
+    .Patient-image-column {
+      flex: 0 0 45%;
+      /* flex:1; */
+      object-fit: cover;
+      overflow: hidden;
+    }
+    
+    .login-image {
+      width: 100%;
+      height:100%;
+      /* padding: 2rem; */
+    }
+    
+    .Patient-form-column {
+      flex: 0 0 55%;
+      /* flex:1; */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+  
+    .animate {
+      -webkit-transition: all 0.3s linear;
+      transition: all 0.3s linear;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .pull-left {
+      float: left;
+    }
+    .pull-right {
+      float: right;
+    }
+    .clearfix:after {
+      visibility: hidden;
+      display: block;
+      font-size: 0;
+      content: " ";
+      clear: both;
+      height: 0;
+    }
+    .clearfix {
+      display: inline-block;
+    }
+    /* start commented backslash hack \*/
+    * html .clearfix {
+      height: 1%;
+    }
+    .clearfix {
+      display: block;
+    }
+    /* close commented backslash hack */
+    .forgot {
+      color: #00A885;
+    }
+    .forgot:hover,
+    .forgot:focus{
+      color: #005AE6;
+      -webkit-transition: all 0.3s linear;
+      transition: all 0.3s linear;
+    }
+    .text-primary {
+      color: #005AE6;
+    }
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    }
+    .logo h1 {
+      color: #005AE6;
+      margin-bottom: -12px;
+    }
+    input[type="checkbox"] {
+      width: auto;
+    }
+   #login-btn{
+      cursor: pointer;
+      /* background:  #80B2FF; */
+      /* background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%); */
+      width: 100%;
+      border: 0;
+      padding: 10px 15px;
+      color: #fff;
+      font-size: 20px;
+      -webkit-transition: 0.3s linear;
+      transition: 0.3s linear;
+      background: transparent linear-gradient(90deg, #167ce9 0%, #07CCEC 100%) 0% 0% no-repeat padding-box;
+      font-weight:600;
+    }
+    #login-btn:hover{
+      box-shadow:0px 6px 16px -6px rgba(1,1,1,0.5);
+    }
+  
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .input-group ::placeholder {
+      font-size: 16px;
+      color: #cdcdcd;
+      font-weight: normal;
+  
+    }
+    .input-group input {
+      outline: none;
+      display: block;
+      width: 100%;
+      height: 40px;
+      position: relative;
+      /* z-index: 3; */
+      border: 1px solid #d9d9d9;
+      padding: 10px 10px;
+      background: #ffffff;
+      box-sizing: border-box;
+      /* font-wieght: 400; */
+      -webkit-transition: 0.3s ease;
+      transition: 0.3s ease;
+    }
+    
+    .wrapper {
+      width: 320px;
+      background: #fff;
+      margin: 20px auto;
+      min-height: 200px;
+      /* border: 1px solid #f3f3f3; */
+      border:0.2px solid rgba(12,176,235,0.85);
+      border-radius:0.7rem;
+      box-shadow: -26px 14px 39px 6px rgba(12,176,235,0.85);
+    }
+    .wrapper:hover{
+      box-shadow:0px 6px 16px -6px rgba(1,1,1,0.5);
+    }
+    .wrapper .inner-warpper {
+      padding:50px 30px;
+      box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.063);
+    }
+    .wrapper .title {
+      margin-top: 0;
+    }
+    .wrapper .supporter {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #8E8E8E;
+      cursor: pointer;
+    }
+    .wrapper .remember-me {
+      cursor: pointer;
+    }
+    .wrapper input[type="checkbox"] {
+      float: left;
+      margin-right: 5px;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .wrapper label[for="rememberMe"] {
+      cursor: pointer;
+    }
+    .wrapper .signup-wrapper {
+      padding-bottom: 30px;
+      font-size: 14px;
+      background: #fff;
+      /* border:1px solid #838589; */
+      border-radius:0.7rem;
+      /* box-shadow: -19px 14px 21px 4px rgba(22,124,233,0.6); */
+    }
+    .wrapper .signup-wrapper a {
+      text-decoration: none;
+      color: #7F7F7F;
+    }
+  
+    
+    /* Media Queries for responsive layout */
+  
+    @media (max-width: 968px) {
+        .inner-wrapper-container{
+            flex-direction: column;
+        }
+        .inner-left{
+            margin-right: 0;
+        }
+        #patient-wrapper{
+            width:320px;
+        }
+      .container {
+        flex-direction: column;
+      }
+    
+      .image-column,
+      .form-column {
+        width: 100%;
+        /* padding: 20px; */
+        background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%);
+      }
+  
+      .form-column{
+          padding-top: 2rem;
+      }
+    
+      .login-image {
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 468px) {
+        #patient-wrapper{
+            width:220px;
+        }
+    }

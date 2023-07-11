@@ -1,0 +1,33 @@
+.tab-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    width: 75%;
+  }
+  
+  .tab-button {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    color: #00549E;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .tab-button:hover {
+    background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%);
+    color: #000;
+  }
+  
+  @media (max-width: 600px) {
+    .tab-buttons {
+      flex-direction: column;
+    }
+  }
+  

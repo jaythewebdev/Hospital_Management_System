@@ -1,0 +1,170 @@
+/* .account-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: #005AE6; */
+    /* background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%); */
+/* } */ 
+
+.header {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+    url("../images/Account-type-bg.jpg") center/cover no-repeat fixed;
+  position: relative;
+  overflow-x: hidden;
+  margin-top: 4rem;
+}
+
+
+.account-type-selection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-110%, -50%);
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    background-color: #fff;
+    /* background-image: linear-gradient(90deg, #167ce9 0%, #07CCEC 100%); */
+    /* border:0.2px solid rgba(12,176,235,0.85); */
+    padding: 3rem;
+    border:1px solid #838589;
+    border-radius: 1rem;
+    /* box-shadow: -19px 14px 21px 4px rgba(22,124,233,0.6); */
+    box-shadow:0px 6px 16px -6px rgba(1,1,1,0.5);
+    border-radius:5px;
+  }
+  
+  .account-type-selection h2 {
+    margin-top: 0;
+    margin-bottom: 40px;
+    color:#2B3E56;
+    text-transform: uppercase;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-align: center;
+  }
+
+  .account-type-selection h3{
+    text-align: center;
+    font-size: 1.1rem;
+    color:#838589;
+  }
+  
+  .account-types {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .account-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .account-type img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .account-type span {
+    margin-top: 10px;
+    color:#283343;
+    
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+  }
+  
+  .tick {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #2196F3;
+  }
+  
+  .selected {
+    border: 2px solid #2B3E56;
+    
+  }
+  
+  .account-type-selection button {
+    padding: 10px 20px;
+    margin-top: 1rem;
+    border-radius: 5px;
+    cursor: pointer; 
+    letter-spacing: 0.1rem;
+    width: 100%;
+    border: 0;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 20px;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+    background: transparent linear-gradient(90deg, #167ce9 0%, #07CCEC 100%) 0% 0% no-repeat padding-box;
+    font-weight:600;
+  }
+  
+  .account-type-selection button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 1024px) {
+    .account-type-selection {
+      transform: translate(-50%, -50%);
+    }
+
+}
+
+  @media (max-width: 600px) {
+
+    .account-type {
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+  
+    .account-type {
+      margin-right: 0;
+    }
+
+    .account-type-selection{
+        border-radius: 0;
+        /* padding: 0; */
+        transform: translate(-50%, -50%);
+
+    }
+    .account-type-selection h2{
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    .tick {
+        font-size: 24px;
+        color: green;
+        margin: 25px;
+      }
+      
+      .selected {
+        position: relative; /* Add this line */
+        /* padding: 2rem; */
+        padding-bottom: 2rem;
+      }
+      
+      .selected .tick {
+        position: absolute;
+        bottom: -15px; /* Adjust the value as needed */
+        left: 33%;
+        transform: translateX(-30%);
+      }
+  }
