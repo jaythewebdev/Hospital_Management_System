@@ -26,3 +26,23 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'drop'
     publishLocation: 'pipeline'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'run'
+    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'drop'
+    publishLocation: 'pipeline'
