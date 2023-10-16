@@ -25,5 +25,3 @@ steps:
   inputs:
     PathtoPublish: 'FrontEnd/bigbangapp/build'
     ArtifactName: 'FE'
-    publishLocation: 'Container'
-
