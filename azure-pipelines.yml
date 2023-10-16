@@ -30,12 +30,14 @@ steps:
   inputs:
     command: 'build'
     projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
