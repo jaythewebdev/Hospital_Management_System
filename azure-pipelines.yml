@@ -20,31 +20,10 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-  
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'FE'
-    publishLocation: 'pipeline'
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '6.x'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'BackEnd/HospitalManagement/HospitalAPI'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'BackEnd/HospitalManagement/HospitalAPI'
-    
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'BE'
+    PathtoPublish: 'FrontEnd/bigbangapp/build'
+    ArtifactName: 'FE'
     publishLocation: 'Container'
+
