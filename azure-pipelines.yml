@@ -25,3 +25,19 @@ steps:
   inputs:
     PathtoPublish: 'FrontEnd/bigbangapp/build'
     ArtifactName: 'FE'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'BE'
