@@ -24,7 +24,7 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
-    artifact: 'drop'
+    artifact: 'FE'
     publishLocation: 'pipeline'
 
 - task: UseDotNet@2
@@ -36,13 +36,15 @@ steps:
   inputs:
     command: 'build'
     projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'run'
+    command: 'publish'
+    publishWebProjects: false
     projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
-
-- task: PublishPipelineArtifact@1
+    
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'drop'
-    publishLocation: 'pipeline'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'BE'
+    publishLocation: 'Container'
