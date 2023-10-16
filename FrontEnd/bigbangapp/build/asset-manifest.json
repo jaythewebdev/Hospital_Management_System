@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e88756d7.css",
+    "main.js": "/static/js/main.8287ecbf.js",
+    "static/js/787.bdb1b9fb.chunk.js": "/static/js/787.bdb1b9fb.chunk.js",
+    "static/media/login-1.jpg": "/static/media/login-1.cb70bf0d78c76cc2f498.jpg",
+    "static/media/Medical prescription-amico.png": "/static/media/Medical prescription-amico.3fcc855be6d55ec82d2f.png",
+    "static/media/Pediatrician-pana.png": "/static/media/Pediatrician-pana.5afc6a9ebb03ce1d71fe.png",
+    "static/media/Person with a cold-pana.png": "/static/media/Person with a cold-pana.0ae09dac0c46c1547340.png",
+    "static/media/Admin-rafiki.png": "/static/media/Admin-rafiki.cb5a8e3fcdf22fbacdf7.png",
+    "static/media/doctor-pngrepo-com.png": "/static/media/doctor-pngrepo-com.3114d9b5e778aedd68bd.png",
+    "static/media/patient-pngrepo-com.png": "/static/media/patient-pngrepo-com.da2914f4d2d74c66c7ff.png",
+    "static/media/Account-type-bg.jpg": "/static/media/Account-type-bg.aa53614e19d19c0ad0f4.jpg",
+    "index.html": "/index.html",
+    "static/media/search.svg": "/static/media/search.b1f781b99ceaafb9c831.svg",
+    "main.e88756d7.css.map": "/static/css/main.e88756d7.css.map",
+    "main.8287ecbf.js.map": "/static/js/main.8287ecbf.js.map",
+    "787.bdb1b9fb.chunk.js.map": "/static/js/787.bdb1b9fb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e88756d7.css",
+    "static/js/main.8287ecbf.js"
+  ]
+}
