@@ -35,13 +35,13 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+    projects: 'BackEnd/HospitalManagement/HospitalAPI'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: 'BackEnd/HospitalManagement/HospitalAPI/HospitalAPI.csproj'
+    projects: 'BackEnd/HospitalManagement/HospitalAPI'
     
 - task: PublishBuildArtifacts@1
   inputs:
