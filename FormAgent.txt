@@ -1,0 +1,706 @@
+import React, { useState } from "react";
+import "./Addtourdetails.css";
+import { useNavigate } from "react-router-dom";
+
+function Addtourdetails() {
+  const navigate = useNavigate();
+  const [daysCount, setDaysCount] = useState(1);
+  const [tourPackage, setTourPackage] = useState({
+    travelAgentId: localStorage.getItem("id"),
+    name: "",
+    description: "",
+    tourType: "",
+    numberOfDays: daysCount,
+    price: "",
+    imageUrl: "",
+    foodAccommodation: "",
+    tourDates: [
+      {
+        capacity: 0,
+        departureDate: "",
+        returnDate: "",
+        bookedCapacity: 0,
+      },
+    ],
+    tourItinerary: [
+      {
+        title: "",
+        imageUrl: "",
+        itineraries: [
+          {
+            activityTitle: "",
+            activityDescription: "",
+            location: "",
+          },
+        ],
+        accommodation: {
+          hotelName: "",
+          address: "",
+        },
+      },
+    ],
+    pickupLocation: [
+      {
+        pickupLocationName: "",
+        pickupTime: "",
+      },
+    ],
+    highlight: [
+      {
+        highlightDetails: "",
+      },
+    ],
+    inclusion: [
+      {
+        inclusionDetails: "",
+      },
+    ],
+    exclusion: [
+      {
+        exclusionDetails: "",
+      },
+    ],
+  });
+
+  const handleTitleChange = (tourIndex, value) => {
+    const updatedTourItinerary = [...tourPackage.tourItinerary];
+    updatedTourItinerary[tourIndex] = {
+      ...updatedTourItinerary[tourIndex],
+      title: value,
+    };
+    setTourPackage({ ...tourPackage, tourItinerary: updatedTourItinerary });
+  };
+
+  const handleInputChange = (tourIndex, field, innerIndex, value) => {
+    const updatedTourItinerary = [...tourPackage.tourItinerary];
+    updatedTourItinerary[tourIndex][field][innerIndex] = value;
+    setTourPackage({ ...tourPackage, tourItinerary: updatedTourItinerary });
+  };
+
+  const handleCountChange = (e) => {
+    const newCount = parseInt(e.target.value, 10);
+    setDaysCount(newCount);
+    setTourPackage({ ...tourPackage, numberOfDays: newCount });
+    const newTourItinerary = Array.from({ length: newCount }, () => ({
+      title: "",
+      itineraries: [
+        {
+          activityTitle: "",
+          activityDescription: "",
+          location: "",
+        },
+      ],
+      accommodation: {
+        hotelName: "",
+        address: "",
+      },
+    }));
+    setTourPackage({
+      ...tourPackage,
+      numberOfDays: newCount,
+      tourItinerary: newTourItinerary,
+    });
+  };
+
+  const handleAddEvent = (tourIndex) => {
+    const updatedTourItinerary = [...tourPackage.tourItinerary];
+    updatedTourItinerary[tourIndex].itineraries.push({
+      activityTitle: "",
+      activityDescription: "",
+      location: "",
+    });
+    setTourPackage({ ...tourPackage, tourItinerary: updatedTourItinerary });
+  };
+
+  const handleDeleteEvent = (tourIndex, eventIndex) => {
+    const updatedTourItinerary = [...tourPackage.tourItinerary];
+    if (updatedTourItinerary[tourIndex].itineraries.length > 1) {
+      updatedTourItinerary[tourIndex].itineraries.splice(eventIndex, 1);
+      setTourPackage({ ...tourPackage, tourItinerary: updatedTourItinerary });
+    }
+  };
+
+  const renderItineraries = (tourIndex) => {
+    const itineraries = tourPackage.tourItinerary[tourIndex].itineraries;
+    return itineraries.map((itinerary, eventIndex) => (
+      <div key={eventIndex} className="tourItineraries">
+        <div>
+          <h4>Event - {eventIndex + 1}</h4>
+        </div>
+        <div className="tourItineraryActivies">
+          <div>
+            {" "}
+            <label className="addTourInputLable">Activity Title:</label>
+            <input
+              type="text"
+              className="addTourInputField"
+              value={itinerary.activityTitle}
+              onChange={(e) =>
+                handleItineraryChange(
+                  tourIndex,
+                  eventIndex,
+                  "activityTitle",
+                  e.target.value
+                )
+              }
+            />
+          </div>
+          <div>
+            <label className="addTourInputLable">Activity Description:</label>
+            <input
+              className="addTourInputField"
+              type="text"
+              value={itinerary.activityDescription}
+              onChange={(e) =>
+                handleItineraryChange(
+                  tourIndex,
+                  eventIndex,
+                  "activityDescription",
+                  e.target.value
+                )
+              }
+            />
+          </div>
+          <div>
+            <label className="addTourInputLable">Location :</label>
+            <input
+              type="text"
+              className="addTourInputField"
+              value={itinerary.eventTime}
+              onChange={(e) =>
+                handleItineraryChange(
+                  tourIndex,
+                  eventIndex,
+                  "location",
+                  e.target.value
+                )
+              }
+            />
+          </div>
+          <div>
+            {itineraries.length > 1 && (
+              <button
+                onClick={() => handleDeleteEvent(tourIndex, eventIndex)}
+                className="tourDataDeleteButton"
+              >
+                Delete
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
+  const handleItineraryChange = (tourIndex, eventIndex, field, value) => {
+    const updatedTourItinerary = [...tourPackage.tourItinerary];
+    updatedTourItinerary[tourIndex].itineraries[eventIndex][field] = value;
+    setTourPackage({ ...tourPackage, tourItinerary: updatedTourItinerary });
+  };
+
+  const renderTourItineraries = () => {
+    return tourPackage.tourItinerary.map((tour, tourIndex) => (
+      <div key={tourIndex} className="tourItinerary">
+        <h3 className="dayNumber">Day - {tourIndex + 1}</h3>
+        <div>
+          <label className="addTourInputLable">Title:</label>
+          <input
+            type="text"
+            className="addTourInputField"
+            onChange={(e) => handleTitleChange(tourIndex, e.target.value)}
+          />
+        </div>
+        <div className="tourActivities">
+          <h4>Activities</h4>
+          {renderItineraries(tourIndex)}
+          <button
+            onClick={() => handleAddEvent(tourIndex)}
+            className="tourDataAddButton"
+          >
+            Add Event
+          </button>
+        </div>
+        <div>
+          <h4>Accommodation</h4>
+          <label className="addTourInputLable">Hotel Name:</label>
+          <input
+            type="text"
+            className="addTourInputField"
+            value={tour.accommodation.hotelName}
+            onChange={(e) =>
+              handleInputChange(
+                tourIndex,
+                "accommodation",
+                "hotelName",
+                e.target.value
+              )
+            }
+          />
+          <label className="addTourInputLable">Address:</label>
+          <input
+            type="text"
+            className="addTourInputField"
+            value={tour.accommodation.address}
+            onChange={(e) =>
+              handleInputChange(
+                tourIndex,
+                "accommodation",
+                "address",
+                e.target.value
+              )
+            }
+          />
+        </div>
+      </div>
+    ));
+  };
+
+  const handleAddTourDate = () => {
+    const newTourDates = [...tourPackage.tourDates];
+    newTourDates.push({
+      capacity: 0,
+      departureDate: "",
+      returnDate: "",
+    });
+    setTourPackage({ ...tourPackage, tourDates: newTourDates });
+  };
+
+  const handleDeleteTourDate = (index) => {
+    const updatedTourDates = tourPackage.tourDates.filter(
+      (_, i) => i !== index
+    );
+    setTourPackage({ ...tourPackage, tourDates: updatedTourDates });
+  };
+
+  const handleDateChange = (index, field, value) => {
+    const updatedTourDates = [...tourPackage.tourDates];
+    updatedTourDates[index][field] = value;
+    setTourPackage({ ...tourPackage, tourDates: updatedTourDates });
+  };
+
+  const renderTourDates = () => {
+    return tourPackage.tourDates.map((date, index) => (
+      <div key={index} className="tourDates">
+        <h3>Tour Trip {index + 1}</h3>
+        <div>
+          <label className="addTourInputLable">Capacity:</label>
+          <input
+            type="number"
+            className="addTourInputField"
+            value={date.capacity}
+            onChange={(e) =>
+              handleDateChange(index, "capacity", e.target.value)
+            }
+          />
+        </div>
+        <div>
+          <label className="addTourInputLable">Departure Date:</label>
+          <input
+            type="date"
+            className="addTourInputField"
+            value={date.departureDate}
+            onChange={(e) =>
+              handleDateChange(index, "departureDate", e.target.value)
+            }
+          />
+        </div>
+        <div>
+          <label className="addTourInputLable">Return Date:</label>
+          <input
+            type="date"
+            className="addTourInputField"
+            value={date.returnDate}
+            onChange={(e) =>
+              handleDateChange(index, "returnDate", e.target.value)
+            }
+          />
+        </div>
+        <div>
+          {tourPackage.tourDates.length > 1 && (
+            <button
+              onClick={() => handleDeleteTourDate(index)}
+              className="tourDataDeleteButton"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
+  const handleAddPickupLocation = () => {
+    const newPickupLocations = [...tourPackage.pickupLocation];
+    newPickupLocations.push({
+      pickupLocationName: "",
+      pickupTime: "",
+    });
+    setTourPackage({ ...tourPackage, pickupLocation: newPickupLocations });
+  };
+
+  const handleDeletePickupLocation = (index) => {
+    const updatedPickupLocations = tourPackage.pickupLocation.filter(
+      (_, i) => i !== index
+    );
+    setTourPackage({
+      ...tourPackage,
+      pickupLocation: updatedPickupLocations,
+    });
+  };
+
+  const handlePickUpLocationChange = (index, field, value) => {
+    const updatedPickupLocations = [...tourPackage.pickupLocation];
+    updatedPickupLocations[index][field] = value;
+    setTourPackage({
+      ...tourPackage,
+      pickupLocation: updatedPickupLocations,
+    });
+  };
+
+  const renderPickupLocations = () => {
+    return tourPackage.pickupLocation.map((location, index) => (
+      <div key={index} className="tourPickupLocation">
+        <div>
+          <h3>Pickup Location {index + 1}</h3>
+        </div>
+        <div className="tourPickUpLocationDetails">
+          <div>
+            <label className="addTourInputLable">Location Name:</label>
+            <input
+              type="text"
+              className="addTourInputField"
+              value={location.pickupLocationName}
+              onChange={(e) =>
+                handlePickUpLocationChange(
+                  index,
+                  "pickupLocationName",
+                  e.target.value
+                )
+              }
+            />
+          </div>
+          <div>
+            <label className="addTourInputLable">Pickup Time:</label>
+            <input
+              type="time"
+              className="addTourInputField"
+              value={location.pickupTime}
+              onChange={(e) =>
+                handlePickUpLocationChange(index, "pickupTime", e.target.value)
+              }
+            />
+          </div>
+          {tourPackage.pickupLocation.length > 1 && (
+            <button
+              onClick={() => handleDeletePickupLocation(index)}
+              className="tourDataDeleteButton"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
+  const handleAddHighlight = () => {
+    const newHighlights = [...tourPackage.highlight];
+    newHighlights.push({ highlightDetails: "" });
+    setTourPackage({ ...tourPackage, highlight: newHighlights });
+  };
+
+  const handleDeleteHighlight = (index) => {
+    const updatedHighlights = tourPackage.highlight.filter(
+      (_, i) => i !== index
+    );
+    setTourPackage({ ...tourPackage, highlight: updatedHighlights });
+  };
+
+  const handleHighlightChange = (index, value) => {
+    const updatedHighlights = [...tourPackage.highlight];
+    updatedHighlights[index].highlightDetails = value;
+    setTourPackage({ ...tourPackage, highlight: updatedHighlights });
+  };
+
+  const renderHighlights = () => {
+    return tourPackage.highlight.map((highlight, index) => (
+      <div key={index} className="tourHighlights">
+        <div>
+          <label className="addTourInputLable">Highlight {index + 1}</label>
+          <input
+            className="addTourInputField"
+            value={highlight.highlightDetails}
+            onChange={(e) => handleHighlightChange(index, e.target.value)}
+          />
+        </div>
+
+        <div>
+          {tourPackage.highlight.length > 1 && (
+            <button
+              onClick={() => handleDeleteHighlight(index)}
+              className="tourDataDeleteButton"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
+  const handleAddInclusion = () => {
+    const newInclusions = [...tourPackage.inclusion];
+    newInclusions.push({ inclusionDetails: "" });
+    setTourPackage({ ...tourPackage, inclusion: newInclusions });
+  };
+
+  const handleDeleteInclusion = (index) => {
+    const updatedInclusions = tourPackage.inclusion.filter(
+      (_, i) => i !== index
+    );
+    setTourPackage({ ...tourPackage, inclusion: updatedInclusions });
+  };
+
+  const handleInclusionChange = (index, value) => {
+    const updatedInclusions = [...tourPackage.inclusion];
+    updatedInclusions[index].inclusionDetails = value;
+    setTourPackage({ ...tourPackage, inclusion: updatedInclusions });
+  };
+
+  const renderInclusions = () => {
+    return tourPackage.inclusion.map((inclusion, index) => (
+      <div key={index} className="tourInclusions">
+        <div>
+          <label className="addTourInputLable">inclusion {index + 1}</label>
+          <input
+            className="addTourInputField"
+            value={inclusion.inclusionDetails}
+            onChange={(e) => handleInclusionChange(index, e.target.value)}
+          />
+        </div>
+        <div>
+          {tourPackage.inclusion.length > 1 && (
+            <button
+              onClick={() => handleDeleteInclusion(index)}
+              className="tourDataDeleteButton"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
+  const handleAddExclusion = () => {
+    const newExclusions = [...tourPackage.exclusion];
+    newExclusions.push({ exclusionDetails: "" });
+    setTourPackage({ ...tourPackage, exclusion: newExclusions });
+  };
+
+  const handleDeleteExclusion = (index) => {
+    const updatedExclusions = tourPackage.exclusion.filter(
+      (_, i) => i !== index
+    );
+    setTourPackage({ ...tourPackage, exclusion: updatedExclusions });
+  };
+
+  const handleExclusionChange = (index, value) => {
+    const updatedExclusions = [...tourPackage.exclusion];
+    updatedExclusions[index].exclusionDetails = value;
+    setTourPackage({ ...tourPackage, exclusion: updatedExclusions });
+  };
+
+  const renderExclusions = () => {
+    return tourPackage.exclusion.map((exclusion, index) => (
+      <div key={index} className="tourExclusions">
+        <div>
+          <label className="addTourInputLable">exclusion {index + 1}</label>
+          <input
+            className="addTourInputField"
+            value={exclusion.exclusionDetails}
+            onChange={(e) => handleExclusionChange(index, e.target.value)}
+          />
+        </div>
+        <div>
+          {tourPackage.exclusion.length > 1 && (
+            <button
+              onClick={() => handleDeleteExclusion(index)}
+              className="tourDataDeleteButton"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
+  const handleSubmit = () => {
+    console.log(tourPackage);
+    fetch("http://localhost:5129/api/Tour/AddTour", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...tourPackage }),
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        console.log(myData);
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
+
+  return (
+    <div className="Addtourdetails">
+      <div className="CreateTourHeader">
+        <div>
+          <h1>Create a tour package</h1>
+        </div>
+      </div>
+      <div className="tourTitleDescription">
+        <div className="inputLabelFlexContainer ">
+          <label className="addTourInputLable">Title For Tour</label>
+          <input
+            className="addTourInputField tourTitleInputField"
+            type="text"
+            placeholder="Title for tour"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, name: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLable ">Tour Description</label>
+          <textarea
+            className="addTourInputField tourDescription"
+            type="text"
+            placeholder="Tour description"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, description: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLable">Food Accommodation</label>
+          <select
+            className="addTourInputField"
+            onChange={(e) =>
+              setTourPackage({
+                ...tourPackage,
+                foodAccommodation: e.target.value,
+              })
+            }
+          >
+            <option value="">Select</option>
+            <option value="food 1">food 1</option>
+            <option value="food 2">food 2</option>
+            <option value="food 3">food 3 </option>
+          </select>
+        </div>
+      </div>
+      <div className="tourTitleDescription">
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLable">Tour Type</label>
+          <select
+            className="addTourInputField"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, tourType: e.target.value })
+            }
+          >
+            <option value="">Select</option>
+            <option value="tour type 1">tour type 1</option>
+            <option value="tour type 2">tour type 2</option>
+            <option value="tour type 3">tour type 3</option>
+          </select>
+        </div>
+        <div className="inputLabelFlexContainer">
+          <label className="addTourInputLable">Price ₹</label>
+          <input
+            className="addTourInputField"
+            type="text"
+            placeholder="Tour Price"
+            onChange={(e) =>
+              setTourPackage({ ...tourPackage, price: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputLabelFlexContainer ">
+          <label className="addTourInputLable">Number of Days</label>
+          <input
+            className="addTourInputField"
+            type="number"
+            min="1"
+            value={daysCount}
+            onChange={handleCountChange}
+          />
+        </div>
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription">
+        {renderTourDates()}
+        <button onClick={handleAddTourDate} className="tourDataAddButton">
+          Add Tour Date
+        </button>
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription">
+        <label className="addTourInputLable">Tour Itinerary</label>
+        {renderTourItineraries()}
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription pickupLocationPackage">
+        {renderPickupLocations()}
+        <button onClick={handleAddPickupLocation} className="tourDataAddButton">
+          Add Pickup Location
+        </button>
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription">
+        <div>
+          <h4>Highlights</h4>
+        </div>
+        <div>
+          {renderHighlights()}
+          <button onClick={handleAddHighlight} className="tourDataAddButton">
+            Add Highlight
+          </button>
+        </div>
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription">
+        <div>
+          <h4>Inclusions</h4>
+        </div>
+        <div>
+          {renderInclusions()}
+          <button onClick={handleAddInclusion} className="tourDataAddButton">
+            Add Inclusion
+          </button>
+        </div>
+      </div>
+      <div className="inputLabelFlexContainer tourTitleDescription">
+        <div>
+          <h4>Exclusions</h4>
+        </div>
+        <div>
+          {renderExclusions()}
+          <button onClick={handleAddExclusion} className="tourDataAddButton">
+            Add Exclusion
+          </button>
+        </div>
+      </div>
+      <div className="tourTitleDescription">
+        <button
+          className="tourDetailsSubmitButton"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          submit
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Addtourdetails;
